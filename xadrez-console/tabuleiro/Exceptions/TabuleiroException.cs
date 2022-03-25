@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace xadrez_console.tabuleiro.Exceptions
 {
-    internal class DomainException : ApplicationException
+    internal class TabuleiroException : ApplicationException
     {
-        public DomainException(string message) : base(message)
+        public TabuleiroException(string message) : base(message)
         {
         }
     }

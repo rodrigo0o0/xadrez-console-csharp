@@ -6,31 +6,63 @@ namespace xadrez_console.tabuleiro
     {
         public int Linhas { get; set; }
         public int Colunas { get; set; }
-        private Peca [,] pecas;
-        
+        private Peca[,] pecas;
+
 
         public Tabuleiro(int linha, int colunas)
         {
             Linhas = linha;
             Colunas = colunas;
             pecas = new Peca[linha, colunas];
-            
+
         }
 
         public Peca peca(int linha, int coluna)
         {
             return pecas[linha, coluna];
         }
-        public void colocarPeca(Peca peca,Posicao pos)
+
+        public Peca peca(Posicao pos)
         {
-            if(pecas[pos.Linha, pos.Coluna] == null)
+            validarPosicao(pos);
+            return pecas[pos.Linha, pos.Coluna];
+        }
+        public void colocarPeca(Peca peca, Posicao pos)
+        {
+            if (existePeca(pos))
             {
-                pecas[pos.Linha, pos.Coluna] = peca;
-                peca.posicao = pos;
+                throw new TabuleiroException("Já existe uma peça nessa posição.");
+
             }
-            else
+            
+
+            pecas[pos.Linha, pos.Coluna] = peca;
+            peca.posicao = pos;
+
+
+        }
+
+        public bool existePeca(Posicao pos)
+        {
+            validarPosicao(pos);
+            return peca(pos) != null;
+        }
+
+        public bool posicaoValida(Posicao pos)
+        {
+            if (pos.Linha < 0 || pos.Linha >= Linhas || pos.Coluna < 0 || pos.Coluna >= Colunas)
             {
-                throw new DomainException("A casa está ocupada.");
+                return false;
+            }
+
+            return true;
+
+        }
+        public void validarPosicao(Posicao pos)
+        {
+            if (!posicaoValida(pos))
+            {
+                throw new TabuleiroException("Posicao Inválida");
             }
         }
     }

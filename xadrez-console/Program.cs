@@ -11,15 +11,10 @@ namespace xadrez_console
         {
             try
             {
-
-                Tabuleiro tab = new Tabuleiro(10, 10);
-
-
-                tab.colocarPeca(new Torre(Cor.Preta, tab), new Posicao(0, 0));
-                tab.colocarPeca(new Torre(Cor.Preta, tab), new Posicao(1, 3));
-                tab.colocarPeca(new Rei(Cor.Preta, tab), new Posicao(2, 4));
-                tab.colocarPeca(new Rei(Cor.Preta, tab), new Posicao(0, 10));
-                Tela.imprimirTabuleiro(tab);
+                PosicaoXadrez px = new PosicaoXadrez('f', 1);
+                Console.WriteLine(px.toPosicao());
+                
+                
             }catch (TabuleiroException ex)
             {
                 Console.WriteLine(ex.Message);

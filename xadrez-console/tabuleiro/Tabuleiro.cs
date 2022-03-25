@@ -1,4 +1,6 @@
-﻿namespace xadrez_console.tabuleiro
+﻿using xadrez_console.tabuleiro.Exceptions;
+
+namespace xadrez_console.tabuleiro
 {
     internal class Tabuleiro
     {
@@ -18,6 +20,18 @@
         public Peca peca(int linha, int coluna)
         {
             return pecas[linha, coluna];
+        }
+        public void colocarPeca(Peca peca,Posicao pos)
+        {
+            if(pecas[pos.Linha, pos.Coluna] == null)
+            {
+                pecas[pos.Linha, pos.Coluna] = peca;
+                peca.posicao = pos;
+            }
+            else
+            {
+                throw new DomainException("A casa está ocupada.");
+            }
         }
     }
 }

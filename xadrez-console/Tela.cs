@@ -12,11 +12,11 @@ namespace xadrez_console
                 {
                     if (tab.peca(linhas, colunas) == null)
                     {
-                        Console.Write("- ");
+                        Console.Write(" -");
                     }
                     else
                     {
-                        Console.WriteLine(" "+tab.peca(linhas,colunas).ToString());
+                        Console.Write(" "+tab.peca(linhas,colunas).ToString());
                     }
                 }
                 Console.WriteLine();

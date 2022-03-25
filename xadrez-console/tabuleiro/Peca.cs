@@ -14,9 +14,9 @@ namespace xadrez_console.tabuleiro
         public Tabuleiro tab { get; set; }
 
         public Peca() { }
-        public Peca(Posicao posicao, Cor cor, Tabuleiro tab)
+        public Peca(Cor cor, Tabuleiro tab)
         {
-            this.posicao = posicao;
+            this.posicao = null;
             this.cor = cor;
             this.qtdMovimentos = 0;
             this.tab = tab;

@@ -41,6 +41,17 @@ namespace xadrez_console.tabuleiro
 
 
         }
+        public Peca retirarPeca(Posicao pos)
+        {
+            if(peca(pos) == null)
+            {
+                return null;
+            }
+            Peca aux = peca(pos.Linha, pos.Coluna);
+            pecas[pos.Linha, pos.Coluna] = null;
+            return aux;
+
+        }
 
         public bool existePeca(Posicao pos)
         {

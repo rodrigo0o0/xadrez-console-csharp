@@ -19,7 +19,7 @@ namespace xadrez_console.xadrez
         }
         public Posicao toPosicao()
         {
-            return new Posicao(8 - Linha, Coluna - 'a');
+            return new Posicao(8 - Linha, Coluna - 97 );
         }
         public override string ToString()
         {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using xadrez_console.tabuleiro;
 using xadrez_console.xadrez;
 
@@ -6,6 +7,43 @@ namespace xadrez_console
 {
     internal class Tela
     {
+        public static void imprimirPartida(PartidaDeXadrez partida)
+        {
+            imprimirTabuleiro(partida.tab);
+            Console.WriteLine();
+            imprimirPecasCapturadas(partida);
+            Console.WriteLine();
+            Console.WriteLine("Turno: " + partida.turno);
+            Console.WriteLine("Aguardando a jogada : " + partida.jogadorAtual);
+
+        }
+
+        private static void imprimirPecasCapturadas(PartidaDeXadrez partida)
+        {
+            Console.WriteLine("Peças capturadas : ");
+            Console.Write("Brancas: ");
+            imprimirConjunto(partida.pecasCapturadas(Cor.Branca));
+            Console.WriteLine();
+            ConsoleColor aux = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("Pretas: ");
+            imprimirConjunto(partida.pecasCapturadas(Cor.Preta));
+            Console.ForegroundColor = aux;
+
+
+        }
+
+        private static void imprimirConjunto(HashSet<Peca> pecas)
+        {
+            Console.Write("[");
+            foreach (Peca peca in pecas)
+            {
+                Console.Write(peca + " ");
+            }
+
+            Console.Write("]");
+        }
+
         public static void imprimirTabuleiro(Tabuleiro tab)
         {
             for (int linhas = 0; linhas < tab.Linhas; linhas++)
@@ -28,6 +66,8 @@ namespace xadrez_console
                 char column = (char)ascii;
                 Console.Write(column + " ");
             }
+
+
 
 
         }
@@ -73,6 +113,7 @@ namespace xadrez_console
                 char column = (char)ascii;
                 Console.Write(column + " ");
             }
+
         }
 
         public static void imprimirPeca(Peca peca)

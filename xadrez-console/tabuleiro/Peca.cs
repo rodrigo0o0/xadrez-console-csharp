@@ -1,54 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace tabuleiro {
+    abstract class Peca {
 
-namespace xadrez_console.tabuleiro
-{
-    internal abstract class Peca
-    {
         public Posicao posicao { get; set; }
         public Cor cor { get; protected set; }
-        public int qtdMovimentos { get; protected set; }
-        public Tabuleiro tab { get; set; }
-
-        public Peca() { }
-        public Peca(Cor cor, Tabuleiro tab)
-        {
+        public int qteMovimentos { get; protected set; }
+        public Tabuleiro tab { get; protected set; }
+         
+        public Peca(Tabuleiro tab, Cor cor) {
             this.posicao = null;
-            this.cor = cor;
-            this.qtdMovimentos = 0;
             this.tab = tab;
+            this.cor = cor;
+            this.qteMovimentos = 0;
         }
-        public abstract bool[,] movimentosPossiveis();
 
-        public void incrementarMovimentos()
-        {
-            qtdMovimentos++;
+        public void incrementarQteMovimentos() {
+            qteMovimentos++;
         }
-        public void decrementarMovimentos()
-        {
-            qtdMovimentos--;
+
+        public void decrementarQteMovimentos() {
+            qteMovimentos--;
         }
-        public bool existeMovimentosPossiveis()
-        {
-            bool [,] mat = movimentosPossiveis();
-            for (int linhas = 0; linhas < tab.Linhas; linhas++)
-            {
-                for (int colunas = 0; colunas < tab.Colunas; colunas++)
-                {
-                    if (mat[linhas, colunas])
-                    {
+
+        public bool existeMovimentosPossiveis() {
+            bool[,] mat = movimentosPossiveis();
+            for (int i=0; i<tab.linhas; i++) {
+                for (int j=0; j<tab.colunas; j++) {
+                    if (mat[i, j]) {
                         return true;
                     }
                 }
             }
             return false;
         }
-        public bool movimentoPossivel(Posicao pos)
-        {
-            return movimentosPossiveis()[pos.Linha, pos.Coluna];
+
+        public bool movimentoPossivel(Posicao pos) {
+            return movimentosPossiveis()[pos.linha, pos.coluna];
         }
+
+        public abstract bool[,] movimentosPossiveis();
     }
 }

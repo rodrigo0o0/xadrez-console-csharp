@@ -16,7 +16,7 @@ namespace xadrez_console.xadrez
         public bool terminada { get; private set; }
         private HashSet<Peca> pecas;
         private HashSet<Peca> capturadas;
-        public bool xeque { get;private set; }
+        public bool xeque { get; private set; }
 
         public PartidaDeXadrez()
         {
@@ -63,8 +63,15 @@ namespace xadrez_console.xadrez
             {
                 xeque = false;
             }
-            turno++;
-            mudaJogador();
+            if (testeXequeMate(adversaria(jogadorAtual)))
+            {
+                terminada = true;
+            }
+            else
+            {
+                turno++;
+                mudaJogador();
+            }
         }
 
         private void desfazMovimento(Posicao origem, Posicao destino, Peca pecaCapturada)
@@ -181,8 +188,38 @@ namespace xadrez_console.xadrez
             }
             return false;
         }
+        public bool testeXequeMate(Cor cor)
+        {
+            if (!estaEmXeque(cor))
+            {
+                return false;
+            }
+            foreach (Peca peca in pecasEmJogo(cor))
+            {
+                bool[,] mat = peca.movimentosPossiveis();
+                for (int linha = 0; linha < tab.Linhas; linha++)
+                {
+                    for (int coluna = 0; coluna < tab.Colunas; coluna++)
+                    {
+                        if (mat[linha, coluna])
+                        {
+                            Posicao origem = peca.posicao;
+                            Posicao destino = new Posicao(linha, coluna);
+                            Peca pecaCapturada = executaMovimento(origem, destino);
+                            bool testeXeque = estaEmXeque(cor);
+                            desfazMovimento(origem, destino, pecaCapturada);
+                            if (!testeXeque)
+                            {
+                                return false;
+                            }
 
+                        }
+                    }
+                }
+            }
+            return true;
 
+        }
         public void colocarNovaPeca(char coluna, int linha, Peca peca)
         {
             tab.colocarPeca(peca, new PosicaoXadrez(coluna, linha).toPosicao());
@@ -196,6 +233,10 @@ namespace xadrez_console.xadrez
             colocarNovaPeca('h', 1, new Torre(Cor.Branca, tab));
             colocarNovaPeca('d', 1, new Rei(Cor.Branca, tab));
             colocarNovaPeca('E', 8, new Rei(Cor.Preta, tab));
+
+
+            colocarNovaPeca('d', 2, new Torre(Cor.Branca, tab));
+            colocarNovaPeca('f', 2, new Torre(Cor.Branca, tab));
 
 
         }

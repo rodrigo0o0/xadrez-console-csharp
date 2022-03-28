@@ -26,20 +26,26 @@ namespace xadrez_console
                     partidaDeXadrez.validarPosicaoDeOrigem(origem);
 
 
-                    bool [,] posicoesPossiveis = partidaDeXadrez.tab.peca(origem).movimentosPossiveis();
+                    bool[,] posicoesPossiveis = partidaDeXadrez.tab.peca(origem).movimentosPossiveis();
                     Console.Clear();
-                    Tela.imprimirTabuleiro(partidaDeXadrez.tab,posicoesPossiveis);
+                    Tela.imprimirTabuleiro(partidaDeXadrez.tab, posicoesPossiveis);
                     Console.WriteLine();
                     Console.WriteLine();
                     Console.Write("Destino: ");
                     Posicao destino = Tela.lerPosicaoXadrez().toPosicao();
-                    partidaDeXadrez.validarPosicaoDeDestino(origem,destino);
+                    partidaDeXadrez.validarPosicaoDeDestino(origem, destino);
 
 
                     partidaDeXadrez.realizaJogada(origem, destino);
 
-                    
+
                 }
+
+
+                Console.WriteLine("XEQUE MATE!!");
+                Console.WriteLine("Vencedor " + partidaDeXadrez.jogadorAtual);
+                Console.ReadKey();
+
 
             }
             catch (TabuleiroException ex)
